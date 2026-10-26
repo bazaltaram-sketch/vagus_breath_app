@@ -25,11 +25,11 @@ jobs:
           channel: 'stable'
 
       - name: Install dependencies
-        working-directory: ./vagus_breath_app
+        working-directory: vagus_breath_app
         run: flutter pub get
 
       - name: Build APK
-        working-directory: ./vagus_breath_app
+        working-directory: vagus_breath_app
         run: flutter build apk --release
 
       - name: Upload APK
