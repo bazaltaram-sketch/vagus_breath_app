@@ -24,9 +24,13 @@ jobs:
         with:
           channel: 'stable'
 
-      # هذه الخطوة السحرية: إنشاء ملفات الأندرويد الناقصة تلقائياً
       - name: Create Android files
         run: flutter create . --platforms=android
+
+      # 👇 هذا السطر السحري يحل مشكلة الـ Namespace 👇
+      - name: Fix Namespace Error
+        run: |
+          sed -i 's/android {/android {\n    namespace "com.example.vagus_breath_app"/' android/app/build.gradle
 
       - name: Install dependencies
         run: flutter pub get
