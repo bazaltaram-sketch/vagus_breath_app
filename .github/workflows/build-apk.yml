@@ -25,12 +25,10 @@ jobs:
           channel: 'stable'
 
       - name: Install dependencies
-        working-directory: vagus_breath_app
-        run: flutter pub get
+        run: cd vagus_breath_app && flutter pub get
 
       - name: Build APK
-        working-directory: vagus_breath_app
-        run: flutter build apk --release
+        run: cd vagus_breath_app && flutter build apk --release
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
