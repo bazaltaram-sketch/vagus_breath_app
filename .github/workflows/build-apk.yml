@@ -27,10 +27,10 @@ jobs:
       - name: Create Android files
         run: flutter create . --platforms=android
 
-      # 👇 هذا السطر السحري يحل مشكلة الـ Namespace 👇
-      - name: Fix Namespace Error
+      # 👇 هذا هو التعديل الجديد: البحث عن الملف في أي مكان وإصلاحه 👇
+      - name: Fix Gradle Namespace
         run: |
-          sed -i 's/android {/android {\n    namespace "com.example.vagus_breath_app"/' android/app/build.gradle
+          find . -name "build.gradle" -path "*/android/app/*" -exec sed -i 's/android {/android {\n    namespace "com.example.vagus_breath_app"/' {} +
 
       - name: Install dependencies
         run: flutter pub get
