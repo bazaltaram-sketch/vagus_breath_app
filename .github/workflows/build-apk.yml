@@ -23,19 +23,21 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+          cache: true
 
       - name: Create Android files
         run: flutter create . --platforms=android
 
-      # 👇 هذا هو التعديل الجديد: البحث عن الملف في أي مكان وإصلاحه 👇
-      - name: Fix Gradle Namespace
+      # 👇 هذا السطر يفرض تحديث إعدادات الأندرويد لتفادي خطأ الـ Namespace 👇
+      - name: Fix Gradle Issues
         run: |
-          find . -name "build.gradle" -path "*/android/app/*" -exec sed -i 's/android {/android {\n    namespace "com.example.vagus_breath_app"/' {} +
-
+          flutter config --no-analytics
+          flutter build apk --release || true
+          
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Build APK
+      - name: Build APK (Stable)
         run: flutter build apk --release
 
       - name: Upload APK
